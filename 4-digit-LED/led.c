@@ -1,6 +1,7 @@
 #include "iostm8s103f3.h"
 #include "led.h"
 
+
 void sysDelay(char del){
 char i;
 for(i=0;i<del;i++){nop();}
@@ -13,12 +14,20 @@ for(i=0;i<del_ms;i++){
 for(j=0;j<200;j++){nop();}}
 }
 
- //open drain ver.
-void startTransmittoin(){
+//open drain ver.
+void init_LED(){
 	PORT_led_CR2&=~BIT_DC_mask;
 	PORT_led_CR1&=~BIT_DC_mask;
 	PORT_led_ODR|=BIT_DC_mask;
 	PORT_led_DDR|=BIT_DC_mask;;
+	sysDelay(200);
+       
+
+}
+ //open drain ver.
+void startTransmittoin(){
+	
+	PORT_led_ODR|=BIT_DC_mask;
 	sysDelay(200);
         PORT_led_ODR&=~BIT_DC_da;
         sysDelay(200);
@@ -138,10 +147,10 @@ void printValue(long int val, char leftAlignment){
 		
   } 
 	else{//rghtAlignment
-	  for(i=8;i>=(9-digCNTR);i--){
+	  for(i=4;i>=(5-digCNTR);i--){
 			d=val%10;
-			if((d==0)&&(sign)&&(i==(9-digCNTR))) 
-			  sendingData[8-digCNTR]=data[13];
+			if((d==0)&&(sign)&&(i==(5-digCNTR))) 
+			  sendingData[4-digCNTR]=data[13];
 			else{
 			  sendingData[i-1]=data[d];
 			  val/=10;
@@ -149,4 +158,4 @@ void printValue(long int val, char leftAlignment){
 		}			
     printData(sendingData);
 	}
-}	
+}
