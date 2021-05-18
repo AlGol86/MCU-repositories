@@ -1,6 +1,7 @@
 #include "iostm8s103f3.h"
 #include "gy_521.h"
 #include "iic.h"
+#include "main.h"
 
 void setRegAddrGY_521(char reg_addr){
   start_iic(GY_521_addr,WRITE);
@@ -65,19 +66,12 @@ int get_average_GY_521(char data_type){
 
 
 }
-/*
-char check_condition_GY_521(int threshold, int hyst, char data_type){
-	extern  struct{
-       int buffer[20];
-       long int summa;
-       char b_pointer;
-       char hyst_f;
-       } average;
 
-  int val=get_average_GY_521(data_type);
-	
-  if     (val > (threshold+hyst)) {average.hyst_f=1;return 1;}
-  else if(val < threshold) {average.hyst_f=0;return 0;}
-  else if (average.hyst_f) return 1;
+char check_condition_GY_521(int threshold, int hyst, int val){
+  extern statement_t statement;
+  	
+  if     (val > (threshold+hyst)) {statement.light_on=1;return 1;}
+  else if(val < threshold) {statement.light_on=0;return 0;}
+  else if (statement.light_on) return 1;
   else return 0;
-}*/
+}
