@@ -10,8 +10,8 @@
 #define PORT_led_IDR       PA_IDR
 #define PORT_led_CR1       PA_CR1
 #define PORT_led_CR2       PA_CR2
-#define PIN_DC_da   1
-#define PIN_DC_clk  2
+#define PIN_DC_da   2
+#define PIN_DC_clk  1
 
 #define BIT_DC_da  (1<<PIN_DC_da)
 #define BIT_DC_clk (1<<PIN_DC_clk)
